@@ -1,0 +1,41 @@
+<div class="p-6 h-full border-2 rounded-lg">
+    <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+            Test ticket details
+        </h2>
+        <h3 class="mt-5 text-2xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+            Comments
+        </h3>
+    </div>
+    <div class="mt-5 flex flex-col justify-between" style="height: calc(100% - 100px);">
+        <div class="h-full overflow-auto" *ngFor="let item of commentsData">
+            <div class="flex w-full mb-1" *ngIf="item.commenter.type !== 'AGENT'">
+                <div class="p-4 pt-2 bg-gray-100 rounded-lg">
+                    <p class="mb-1" style="font-size: 10px;">{{item.commenter.name}}</p>
+                    <p [innerHTML]="item.content"></p>
+                </div>
+            </div>
+            <div class="flex w-full justify-end mb-1" *ngIf="item.commenter.type === 'AGENT'">
+                <div class="bg-gray-300 p-4 pt-2 rounded-lg">
+                    <p class="mb-1" style="font-size: 10px;">{{item.commenter.name}}</p>
+                    <p [innerHTML]="item.content"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <form class="flex items-center" [formGroup]="form">
+                <mat-form-field class="w-full mr-2">
+                    <input matInput [formControlName]="'comment'" placeholder="Comment" autofocus>
+                </mat-form-field>
+                <button mat-flat-button [color]="'primary'" (click)="save()">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#fff"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: width;"> Loading... </p>
+</ngx-spinner>

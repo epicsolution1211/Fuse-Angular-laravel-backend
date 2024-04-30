@@ -1,0 +1,64 @@
+<div class="flex flex-col max-w-500 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">
+                {{data?.id ? 'Edit' : 'Create'}}
+                Voting Points
+            </div>
+
+            <!-- <div class="text-lg font-medium" *ngIf="data?.actions == 'Edit'">
+                Update Pool
+            </div> -->
+
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <form class="p-6" [formGroup]="form" (ngSubmit)="handleSubmit()">
+            <mat-form-field class="w-full">
+                <mat-label>User</mat-label>
+                <input type="text" placeholder="Select User" aria-label="Select User" matInput formControlName="user_id"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="matdisplayFN">
+                    <mat-option *ngIf="loading"><mat-spinner diameter="25"></mat-spinner></mat-option>
+                    <ng-container *ngIf="!loading">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                            {{option.username}}
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+                <mat-error *ngIf="submitted && f.user_id.errors">
+                    Select Any One User
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-1/2 pr-2">
+                <mat-label>Voting Points</mat-label>
+                <input matInput [formControlName]="'voting_points'" />
+                <mat-error *ngIf="submitted && f.voting_points.errors">
+                    Should be a number
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-1/2 pl-2">
+                <mat-label>Monthly Purchase</mat-label>
+                <input matInput [formControlName]="'per_month_purchase_vote'" />
+                <mat-error *ngIf="submitted && f.per_month_purchase_vote.errors">
+                    Should be a number
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>purchase_price</mat-label>
+                <input matInput [formControlName]="'vote_purchase_price'" />
+                <mat-error *ngIf="submitted && f.vote_purchase_price.errors">
+                    Should be a number
+                </mat-error>
+            </mat-form-field>
+            <button type="submit" mat-flat-button color="primary">Save</button>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.2)" size="medium" [name]="spinner1" color="#0f172a"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: rgb(10, 10, 10)">Loading...</p>
+</ngx-spinner>

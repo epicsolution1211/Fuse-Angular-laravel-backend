@@ -1,0 +1,49 @@
+<mat-dialog-content *ngIf="confirmData?.fromData != 'pool-reject'">
+	<p>
+		{{message}}
+	</p>
+</mat-dialog-content>
+<mat-dialog-actions align="center" *ngIf="confirmData?.fromData != 'pool-reject'">
+	<!-- <button mat-flat-button [color]="'primary'" (click)="onConfirmClick()">
+        {{confirmButtonText}}
+    </button> -->
+	<button mat-raised-button color="primary" (click)="onConfirmClick('null')"
+		tabindex="1">{{confirmButtonText}}</button>
+	<button mat-raised-button mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
+</mat-dialog-actions>
+
+
+<mat-dialog-content *ngIf="confirmData?.fromData == 'pool-reject'">
+	<p>
+		{{message}}
+	</p>
+	<div *ngIf="confirmData?.type == 'reject'">
+		<hr>
+		<textarea style="width: 100%;
+		border: 1px solid #f1f5f9;
+		padding: 11px;
+		border-radius: 5px;" name="text" rows="4" placeholder="Reason" [(ngModel)]="reason" name="reason"
+			class="form-control addtxt">
+        </textarea>
+	</div>
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="center" *ngIf="confirmData?.fromData == 'pool-reject'">
+	<!-- <button mat-flat-button [color]="'primary'" (click)="onConfirmClick()">
+        {{confirmButtonText}}
+    </button> -->
+	<button mat-raised-button color="primary" (click)="onConfirmClick('approve')" tabindex="1"
+		*ngIf="confirmData?.type == 'approve'">
+		Approve
+	</button>
+	<button mat-raised-button color="primary" (click)="onConfirmClick('reject')" tabindex="1"
+		*ngIf="confirmData?.type == 'reject'">
+		Reject
+	</button>
+
+	<button mat-raised-button color="warn" tabindex="1" (click)="dialogRef.close(true);">
+		Cancel
+	</button>
+</mat-dialog-actions>

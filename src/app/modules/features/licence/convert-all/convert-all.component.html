@@ -1,0 +1,54 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Conversion Permament Licences to The New Multi-Server Licence</div>
+        <button
+        mat-icon-button
+        (click)="saveAndClose()"
+        [tabIndex]="-1">
+        <mat-icon
+            class="text-current"
+            [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6" [formGroup]="form" autocomplete="off">
+            <!-- To -->
+                <div class="form-group text-center">All permanent licences will be converted into the one multi-server licence.
+                </div>
+                 <div class="form-group text-center">The longest maintenance time will be assigned to the newly converted licence.<br>If you have unused maintenance plans, apply them before converting.
+                </div>
+                <div class="form-group text-center">All CCU limits will be added together to the new licence with new limits as below:
+                </div>
+                <div class="form-group text-center">
+                <p>Atavism On-Premises Standard 1000 CCU</p>
+                <p>Atavism On-Premises Advanced 1500 CCU</p>
+                <p>Atavism On-Premises Professional 5000 CCU</p>
+                <p>Atavism On-Premises Ultra 15000 CCU</p>
+                </div>
+            <hr/>
+            <!-- Actions -->
+            <div class="display: flex; align-items: center; justify-content: center;">
+                <div class="flex items-center sm:mt-0">
+                    <button
+                    class="order-first sm:order-last"
+                    type="button"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="save()">
+                    Continue
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading> 
+        <div style="margin: 50% auto" >
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+ </div>

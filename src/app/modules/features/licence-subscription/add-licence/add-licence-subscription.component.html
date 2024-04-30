@@ -1,0 +1,123 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium" *ngIf="licence == null">New Licence Subscription</div>
+            <div class="text-lg font-medium" *ngIf="licence != null">Update Licence Subscription</div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div>
+            <form class="d-flex p-6 add-download-main" [formGroup]="form">
+                <!-- To -->
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Subscription Plan Name</mat-label>
+                    <input matInput [formControlName]="'plan_name'">
+                    <mat-error *ngIf="submitted && f.plan_name.errors">
+                        Subscription plan name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Subscription Plan Description</mat-label>
+                    <textarea matInput [formControlName]="'plan_discription'" class="add_download_textarea"></textarea>
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.plan_discription.errors">
+                        Subscription plan description is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Subscription Trial Period in days</mat-label>
+                    <input matInput [formControlName]="'trial_period_days'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.trial_period_days.errors">
+                        Subscription trial period in days is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Price in USD</mat-label>
+                    <input matInput [formControlName]="'from_price'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.from_price.errors">
+                        Product Price is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Subscription time/Maintenance time in days</mat-label>
+                    <input matInput [formControlName]="'subscription_time'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.subscription_time.errors">
+                        Subscription time is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Concurrent Connections</mat-label>
+                    <input matInput [formControlName]="'ccu'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.ccu.errors">
+                        Concurrent connections is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Multiserver</mat-label>
+                    <mat-select [formControlName]="'multiserver'" panelClass="myPanelClassCustom"
+                        [(ngModel)]="selectedMutliserver2">
+                        <ng-container *ngFor="let multi of multiserver">
+                            <mat-option [value]="multi.id">
+                                {{multi.name}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.multiserver.errors">
+                        Multiserver is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Licence Type</mat-label>
+                    <input matInput [formControlName]="'licence_type'">
+                    <mat-error *ngIf="submitted && f.licence_type.errors">
+                        Licence type is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- <mat-form-field class="w-1/2 pl-3" *ngIf="licence">
+                    <mat-label>External Id</mat-label>
+                    <input matInput [formControlName]="'external_id'" readonly disabled>
+                    <mat-error *ngIf="submitted && f.external_id.errors">
+                        External id is required
+                    </mat-error>
+                </mat-form-field> -->
+
+                <!-- <mat-form-field class="w-1/2 pl-3" *ngIf="!licence">
+                    <mat-label>External Id</mat-label>
+                    <input matInput [formControlName]="'external_id'">
+                    <mat-error *ngIf="submitted && f.external_id.errors">
+                        External id is required
+                    </mat-error>
+                </mat-form-field> -->
+
+                <hr class="abc" />
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" mat-flat-button [color]="'primary'"
+                            [disabled]="clicked" (click)="save()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+</div>

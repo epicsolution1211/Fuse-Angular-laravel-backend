@@ -1,0 +1,67 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Cancel Subscription Licence</div>
+        <button
+        mat-icon-button
+        (click)="saveAndClose()"
+        [tabIndex]="-1">
+        <mat-icon
+            class="text-current"
+            [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6" [formGroup]="form" autocomplete="off" (ngSubmit)="cancelSubscription()">
+            <!-- To -->
+                <input type="hidden" [formControlName]="'subscription_id'" value="{{subscription_id}}">
+                <input type="hidden" [formControlName]="'licence_id'" value="{{licence_id}}">
+                <p>Atavism Licence Key : {{licence_data?.licence_key}}</p>
+                <p>Type : {{licence_data?.licence_type_name}}</p>
+                <p>Expiration Date : {{licence_data?.maintenance_expire}} UTC</p>
+                <p>Active Subscription Plan : {{licence_data?.connections}} CCU</p>
+                <p>Next Payment : {{licence_data?.next_pay}} UTC</p>
+                <br/>
+                <div class="form-group">Let us know why do you want to resign from your subscription
+                </div>
+                <div [formGroup]="form">
+                    <input type="radio" [formControlName]="'reason'" value="1" (change)="changeReason($event)" checked> {{reasonFirstLabel}} <br/>
+                    <input type="radio" [formControlName]="'reason'" value="2" (change)="changeReason($event)"> {{reasonSecondLabel}} <br/>  
+                    <input type="radio" [formControlName]="'reason'" value="4" (change)="changeReason($event)"> {{reasonThirdLabel}}<br/>  
+                    <input type="radio" [formControlName]="'reason'" value="5" (change)="changeReason($event)"> {{reasonFiveLabel}}<br/> 
+                </div>
+                <br/>
+                <mat-form-field class="w-1/2 pl-3" *ngIf="reason_textbox">
+                    <input matInput [formControlName]="'reason_text'" [(ngModel)]="reason_text">
+                    <mat-error *ngIf="f.reason_text.touched && f.reason_text.invalid">
+                        Feedback text is required
+                    </mat-error>
+                </mat-form-field>
+                <p>Important note: Please be informed that canceling subscription process can take a few minutes as it is taken care of by Xsolla.</p>
+            <hr/>
+
+            <!-- Actions -->
+            <div class="display: flex; align-items: center; justify-content: center;">
+                <div class="flex items-center sm:mt-0">
+                    <button
+                    class="order-first sm:order-last"
+                    type="submit"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="!form.valid || clickCancelStatus">
+                    Cancel Subscription
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading> 
+        <div style="margin: 50% auto" >
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+ </div>

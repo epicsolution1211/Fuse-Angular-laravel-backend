@@ -1,0 +1,51 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+  <div>
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+      <div class="text-lg font-medium">Reasons History</div>
+      <button
+      mat-icon-button
+      (click)="saveAndClose()"
+      [tabIndex]="-1">
+      <mat-icon
+      class="text-current"
+      [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+  </div>
+  <!-- Compose form -->
+  <div class="mat-elevation-z8 pr-3" style="height: 400px;overflow-y: scroll;">
+    <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+      <div class="flex-auto">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+          <!-- Name Column -->
+          <ng-container matColumnDef="licence_key">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Licence Key </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.licence_key}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.username}}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+    <!-- <mat-paginator *ngIf="subscriptionCancelReasonsData?.total > 0" [length]="subscriptionCancelReasonsData?.total" [pageSize]="paginate" [pageSizeOptions]="[5,10,15]" showFirstLastButtons (page)="pageEvent = getServerData($event)"></mat-paginator> -->
+    <ng-template #noProducts>
+      <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No records found!
+      </div>
+    </ng-template>
+  </div>
+</div>
+<ng-template #loading> 
+  <div style="margin: 50% auto" >
+    <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+    <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+  </div>
+</ng-template>
+</div>

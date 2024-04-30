@@ -1,0 +1,36 @@
+<div class="flex flex-col max-w-500 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">
+                Offer
+            </div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <div class="p-6 add-permanent">
+            <h4 style="margin-bottom: 5px;">Amount:</h4>
+            <p style="margin-bottom: 20px;">{{apidata.amount}}</p>
+            <h4 style="margin-bottom: 5px;">Deadline:</h4>
+            <p style="margin-bottom: 20px;">{{apidata.deadline}}</p>
+            <h4 style="margin-bottom: 5px;">Description:</h4>
+            <p style="margin-bottom: 5px;">{{apidata.description}}</p>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-end mt-3"
+                *ngIf="userRole === 3 && apidata.accepted === 0">
+                <div class="flex items-center sm:mt-0">
+                    <button class="order-first sm:order-last" mat-flat-button [color]="'primary'"
+                        (click)="acceptOffer()">
+                        Accept
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div style="margin: 50% auto">
+        <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+    </div>
+</ng-template>

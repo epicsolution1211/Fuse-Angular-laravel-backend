@@ -1,0 +1,60 @@
+<div class="mt-2">
+    <div>
+
+        <span class="heading"><span> Title: </span> {{commonService?.featureData?.title}}</span>
+
+        <button mat-button class="closebutton" (click)="onToggleClose()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <br>
+
+        <span class="heading"> <span> Description: </span> {{commonService?.featureData?.description}}</span>
+        <br>
+
+    </div>
+
+</div>
+<div class="container justify-content-center mt-5 border-left border-right">
+    <span>Feature Comments</span>
+
+    <div class="d-flex justify-content-center pt-3 pb-2 text-right" *ngIf="!openFromapprovedList">
+        <textarea name="text" rows="4" placeholder="+ Add a comment" [(ngModel)]="comment" name="comment"
+            class="form-control addtxt">
+        </textarea>
+        <button class="order-first sm:order-last mt-1" mat-flat-button [color]="'primary'"
+            (click)="postCommentOnFeature()" *ngIf="commonService?.featureData?.status != 1">
+            Comment
+        </button>
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-center py-2" *ngFor="let comment of commentsList"
+        [ngClass]="{'currentUser':comment.comment_by == currentId}">
+        <div class="second py-2 px-2"> <span class="text1">
+                {{comment.comment}}
+            </span>
+            <div class="d-flex justify-content-between py-1 pt-2">
+                <div>
+                    <span class="text2">
+                        {{comment.comment_user.username}}
+                    </span>
+                </div>
+                <div>
+                    <span class="text3">
+                        {{comment.created_at | date : 'EEEE, MMMM d, y'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 *ngIf="commentsList.length == 0" class="text-center">
+        No Comments Yet!
+    </h5>
+</div>
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#fff"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: width;"> Loading... </p>
+</ngx-spinner>

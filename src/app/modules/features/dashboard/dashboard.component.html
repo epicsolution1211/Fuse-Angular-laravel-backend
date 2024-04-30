@@ -1,0 +1,441 @@
+<div class="flex flex-col flex-auto min-w-0">
+	<!-- Main -->
+	<div class="flex-auto p-6 sm:p-10">
+		<!-- CONTENT GOES HERE -->
+		<div *ngIf="allCounts !== undefined"
+			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0 ng-star-inserted">
+			<div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden" *ngIf="role_id != 3">
+				<div class="flex items-start justify-between">
+					<div class="text-lg font-medium tracking-tight leading-6 truncate">
+						Accounts
+					</div>
+					<div class="ml-2 -mt-2 -mr-3">
+						<button aria-haspopup="true" mat-icon-button=""
+							class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+							<span class="mat-button-wrapper">
+								<mat-icon role="img" class="mat-icon notranslate icon-size-5 mat-icon-no-color"
+									aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="dots-vertical"
+									data-mat-icon-namespace="heroicons_solid">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+										fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet"
+										focusable="false">
+										<path
+											d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+										</path>
+									</svg>
+								</mat-icon>
+							</span>
+							<span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round"></span>
+							<span class="mat-button-focus-overlay"></span>
+						</button>
+						<mat-menu class="ng-tns-c55-38 ng-star-inserted"></mat-menu>
+					</div>
+				</div>
+				<div class="flex flex-col items-center mt-2">
+					<div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">
+						{{allCounts.accounts_count}}
+					</div>
+					<div class="text-lg font-medium text-blue-600 dark:text-blue-500">
+						Customers
+					</div>
+					<div class="flex items-center justify-center w-full mt-5 text-secondary">
+						<div class="text-md font-medium truncate">
+							Active:
+						</div>
+						<div class="ml-1.5 text-lg font-semibold">
+							{{allCounts.customers_active_count}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden" *ngIf="role_id != 3">
+				<div class="flex items-start justify-between">
+					<div class="text-lg font-medium tracking-tight leading-6 truncate">
+						Users
+					</div>
+					<div class="ml-2 -mt-2 -mr-3">
+						<button aria-haspopup="true" mat-icon-button=""
+							class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+							<span class="mat-button-wrapper">
+								<mat-icon role="img" class="mat-icon notranslate icon-size-5 mat-icon-no-color"
+									aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="dots-vertical"
+									data-mat-icon-namespace="heroicons_solid"><svg xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20" fill="currentColor" fit="" height="100%" width="100%"
+										preserveAspectRatio="xMidYMid meet" focusable="false">
+										<path
+											d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+										</path>
+									</svg>
+								</mat-icon>
+							</span>
+							<span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round">
+							</span>
+							<span class="mat-button-focus-overlay">
+							</span>
+						</button>
+						<mat-menu class="ng-tns-c55-38 ng-star-inserted">
+						</mat-menu>
+					</div>
+				</div>
+				<div class="flex flex-col items-center mt-2">
+					<div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">
+						{{allCounts.users_count}}
+					</div>
+					<div class="text-lg font-medium text-red-600 dark:text-red-500">
+						Employees
+					</div>
+					<div class="flex items-center justify-center w-full mt-5 text-secondary">
+						<div class="text-md font-medium truncate">
+							Admin:
+						</div>
+						<div class="ml-1.5 text-lg font-semibold">
+							{{allCounts.employees_admins_count}}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden" *ngIf="role_id != 3">
+				<div class="flex items-start justify-between">
+					<div class="text-lg font-medium tracking-tight leading-6 truncate">
+						Releases
+					</div>
+					<div class="ml-2 -mt-2 -mr-3">
+						<button aria-haspopup="true" mat-icon-button=""
+							class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+							<span class="mat-button-wrapper">
+								<mat-icon role="img" class="mat-icon notranslate icon-size-5 mat-icon-no-color"
+									aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="dots-vertical"
+									data-mat-icon-namespace="heroicons_solid"><svg xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20" fill="currentColor" fit="" height="100%" width="100%"
+										preserveAspectRatio="xMidYMid meet" focusable="false">
+										<path
+											d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+										</path>
+									</svg>
+								</mat-icon>
+							</span>
+							<span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round">
+							</span>
+							<span class="mat-button-focus-overlay">
+							</span>
+						</button>
+						<mat-menu class="ng-tns-c55-38 ng-star-inserted">
+						</mat-menu>
+					</div>
+				</div>
+				<div class="flex flex-col items-center mt-2">
+					<div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">
+						{{allCounts.releases_count}}
+					</div>
+					<div class="text-lg font-medium text-amber-600 dark:text-amber-500">
+						Versions
+					</div>
+					<div class="flex items-center justify-center w-full mt-5 text-secondary">
+						<div class="text-md font-medium truncate">
+							Latest:
+						</div>
+						<div class="ml-1.5 text-lg font-semibold">
+							{{allCounts.releases_latest_version}}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden" *ngIf="role_id != 3">
+				<div class="flex items-start justify-between">
+					<div class="text-lg font-medium tracking-tight leading-6 truncate">
+						Downloads
+					</div>
+					<div class="ml-2 -mt-2 -mr-3">
+						<button aria-haspopup="true" mat-icon-button=""
+							class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+							<span class="mat-button-wrapper">
+								<mat-icon role="img" class="mat-icon notranslate icon-size-5 mat-icon-no-color"
+									aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="dots-vertical"
+									data-mat-icon-namespace="heroicons_solid"><svg xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20" fill="currentColor" fit="" height="100%" width="100%"
+										preserveAspectRatio="xMidYMid meet" focusable="false">
+										<path
+											d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+										</path>
+									</svg>
+								</mat-icon>
+							</span>
+							<span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round">
+							</span>
+							<span class="mat-button-focus-overlay">
+							</span>
+						</button>
+						<mat-menu class="ng-tns-c55-38 ng-star-inserted">
+						</mat-menu>
+					</div>
+				</div>
+				<div class="flex flex-col items-center mt-2">
+					<div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">
+						{{allCounts.downloads_enabled_count}}
+					</div>
+					<div class="text-lg font-medium text-green-600 dark:text-green-500">
+						Downloads
+					</div>
+					<div class="flex items-center justify-center w-full mt-5 text-secondary">
+						<div class="text-md font-medium truncate">
+							Active:
+						</div>
+						<div class="ml-1.5 text-lg font-semibold">
+							{{allCounts.downloads_disabled_count}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="position: relative">
+		<!-- <ngx-spinner [name]="spinner1" [fullScreen]="false" template="<img src='./assets/images/logo/atavism_logo_big.png' />" bdColor="rgba(248,241,241,0.22)"
+			size="default" color="#160303">
+
+		</ngx-spinner> -->
+		<div class="ml-10 mr-10 mb-10 flex-auto sm:p-10 flex-col flex-auto p-6 bg-card shadow bg-card shadow rounded-2xl overflow-hidden"
+			*ngIf="feature_permission?.includes('read')">
+
+			<div class="text-lg font-medium ">
+				Feedback Reasons
+			</div>
+
+			<form class="mt-4" [formGroup]="feedbacksearchform">
+				<div class="grid grid-cols-4 gap-4">
+					<div>
+						<mat-form-field class="min-w-full" appearance="fill">
+							<mat-label>
+								Users
+							</mat-label>
+							<input type="text" placeholder="Pick one" aria-label="Number" matInput
+								[(ngModel)]="userFilter.name" name="userFilter.name" [formControlName]="'users'"
+								[matAutocomplete]="auto">
+							<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
+								<mat-option *ngFor="let user of usersArr | filterBy: userFilter" [value]="user.id">
+									{{user.username}}
+								</mat-option>
+							</mat-autocomplete>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field class="min-w-full">
+							<mat-label>
+								From
+							</mat-label>
+							<input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date"
+								[formControlName]="'from'" [disabled]="null" (focus)="picker1.open()">
+							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+							<ngx-mat-datetime-picker #picker1 [showSpinners]="false" [showSeconds]="1" [stepHour]="1"
+								[stepMinute]="1" [stepSecond]="1" [touchUi]="false" [enableMeridian]="false"
+								[disableMinute]="false" [hideTime]="false">
+							</ngx-mat-datetime-picker>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field class="min-w-full">
+							<mat-label>
+								To
+							</mat-label>
+							<input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date"
+								[formControlName]="'to'" [disabled]="null" (focus)="picker2.open()">
+							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+							<ngx-mat-datetime-picker #picker2 [showSpinners]="false" [showSeconds]="1" [stepHour]="1"
+								[stepMinute]="1" [stepSecond]="1" [touchUi]="false" [enableMeridian]="false"
+								[disableMinute]="false" [hideTime]="false">
+							</ngx-mat-datetime-picker>
+						</mat-form-field>
+					</div>
+					<div>
+						<div class="text-right pt-5">
+							<div>
+								<button class="order-last sm:order-last" mat-flat-button [color]="'primary'"
+									(click)="searchFeedback()">
+									Search
+								</button>
+								<button class="order-last sm:order-last ml-2" mat-flat-button [color]="'primary'"
+									(click)="reset()">
+									Reset
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<ng-container *ngIf="feature_permission?.includes('read')">
+				<table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)"
+					*ngIf="subscriptionCancelReasonsData?.total> 0; else noProducts">
+					<ng-container matColumnDef="reason">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							Reason
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{element.reason}}
+							<button mat-icon-button [color]="'primary'" class="button24 Feedback-btn" [size]="10"
+								*ngIf="element.total_count > 1"
+								(click)="getFeedbackReasons(element.id,element.archive_id,'multiple')">
+								{{element.total_count|json}}
+							</button>
+							<button mat-icon-button [color]="'primary'" class="button24 Feedback-btn" [size]="10"
+								*ngIf="element.total_count <= 1"
+								(click)="getFeedbackReasons(element.id,element.archive_id,'single')">
+								{{element.total_count|json}}
+							</button>
+						</td>
+					</ng-container>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns">
+					</tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+					</tr>
+				</table>
+			</ng-container>
+			<ng-template #noProducts>
+				<div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+					No records found!
+				</div>
+			</ng-template>
+			<mat-paginator *ngIf="subscriptionCancelReasonsData?.total > 0"
+				[length]="subscriptionCancelReasonsData?.subscriptionCancelReasonsCount" [pageSize]="paginate"
+				[pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="pageEvent = getServerData($event)">
+			</mat-paginator>
+			<ng-template #loading>
+				<div style="margin-left: 50%;margin-top:25%;">
+					<mat-progress-spinner [mode]="'indeterminate'">
+					</mat-progress-spinner>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+
+
+	<div
+		class="ml-10 mr-10 mb-10 -mt-2 flex-auto sm:p-10 flex-col flex-auto p-6 bg-card shadow bg-card shadow rounded-2xl overflow-hidden">
+		<div style="position:relative;">
+			<ngx-spinner [name]="spinner2" [fullScreen]="false"
+				template="<img src='./assets/images/logo/atavism_logo_big.png' />" bdColor="rgba(248,241,241,0.22)"
+				size="default" color="#160303"></ngx-spinner>
+			<form class="" [formGroup]="chartsearchform">
+				<div class="grid grid-cols-4 gap-4">
+					<div>
+						<mat-form-field class="min-w-full">
+							<mat-label>
+								Date
+							</mat-label>
+							<mat-select [formControlName]="'filter'" (selectionChange)="checkValue($event)"
+								[(value)]="selectedFilter" [(ngModel)]="selectedFilter" panelClass="myPanelClass">
+								<ng-container *ngFor="let filters of filter">
+									<mat-option [value]="filters">
+										{{filters.name}}
+									</mat-option>
+								</ng-container>
+							</mat-select>
+							<mat-error *ngIf="submitted && f.filter.errors">
+								Filter is required
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div *ngIf="isCustom">
+						<mat-form-field class="min-w-full">
+							<mat-label>
+								From
+							</mat-label>
+							<input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date"
+								[formControlName]="'from'" [disabled]="null" (focus)="picker1.open()">
+							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+							<ngx-mat-datetime-picker #picker1 [showSpinners]="false" [showSeconds]="1" [stepHour]="1"
+								[stepMinute]="1" [stepSecond]="1" [touchUi]="false" [enableMeridian]="false"
+								[disableMinute]="false" [hideTime]="false">
+							</ngx-mat-datetime-picker>
+						</mat-form-field>
+					</div>
+					<div *ngIf="isCustom">
+						<mat-form-field class="min-w-full">
+							<mat-label>
+								To
+							</mat-label>
+							<input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date"
+								[formControlName]="'to'" [disabled]="null" (focus)="picker2.open()">
+							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+							<ngx-mat-datetime-picker #picker2 [showSpinners]="false" [showSeconds]="1" [stepHour]="1"
+								[stepMinute]="1" [stepSecond]="1" [touchUi]="false" [enableMeridian]="false"
+								[disableMinute]="false" [hideTime]="false">
+							</ngx-mat-datetime-picker>
+						</mat-form-field>
+					</div>
+					<div>
+						<mat-form-field class="min-w-full">
+							<mat-label>
+								Licences
+							</mat-label>
+							<mat-select [formControlName]="'licence'" (selectionChange)="onSelectEvent($event.value)"
+								multiple>
+								<mat-option *ngFor="let licence of licencesArr" [(value)]="licence.licid">
+									{{licence.name}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div>
+					<div class="text-right">
+						<button class="order-last sm:order-last" mat-flat-button [disabled]="clicked"
+							[color]="'primary'" (click)="searchGraph()">
+							Search
+						</button>
+						<button class="order-last sm:order-last ml-2" mat-flat-button [color]="'primary'"
+							(click)="resetChart()">
+							Reset
+						</button>
+					</div>
+				</div>
+			</form>
+
+
+
+			<div id="chart1" *ngIf="chartOptions">
+				<apx-chart [series]="multipleChartOptions" [chart]="chartOptions.chart"
+					[dataLabels]="chartOptions.dataLabels" [tooltip]="chartOptions.tooltip" [grid]="chartOptions.grid"
+					[xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis" [colors]="chartOptions.colors">
+				</apx-chart>
+			</div>
+		</div>
+	</div>
+
+
+	<div
+		class="ml-10 mr-10 mb-10 -mt-2 flex-auto sm:p-10 flex-col flex-auto p-6 bg-card shadow bg-card shadow rounded-2xl overflow-hidden">
+		<table class="mat-table">
+			<tr class="mat-header-row">
+				<!-- <th class="mat-header-cell" style="width: 100px;">Action</th> -->
+				<th class="mat-header-cell">Licence Key</th>
+				<th class="mat-header-cell">Graph</th>
+			</tr>
+			<tr class="mat-row" *ngFor="let item of userData; let i = index" [attr.data-index]="i">
+				<!-- <td class="mat-cell"><input type="checkbox" class="form-control" (change)="checkLicenceValue($event,userData[i].licence_id.licence_id)"/></td> -->
+				<td class="mat-cell" style="width: 200px;">{{userData[i].series.name}}</td>
+				<td class="mat-cell">
+					<div id="chart1">
+						<apx-chart [series]='[userData[i].series]' [chart]="userData[i].chart"
+							[dataLabels]="userData[i].dataLabels" [tooltip]="userData[i].tooltip"
+							[grid]="userData[i].grid" [xaxis]='userData[i].xaxis' [yaxis]="chartOptions.yaxis"
+							[colors]="userData[i].colors">
+						</apx-chart>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- <ng-template #loading>
+		<div style="margin-left: 50%;margin-top:25%;">
+			<mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+		</div>
+	</ng-template> -->
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff"
+	template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="true">
+	<p style="color: white"> Loading... </p>
+</ngx-spinner>

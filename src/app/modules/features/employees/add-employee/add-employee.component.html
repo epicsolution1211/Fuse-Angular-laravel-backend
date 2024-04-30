@@ -1,0 +1,112 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium" *ngIf="employee == null">New Employee</div>
+            <div class="text-lg font-medium" *ngIf="employee != null">Edit Employee</div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6" [formGroup]="form" autocomplete="off">
+                <!-- To -->
+                <mat-form-field class="w-1/3 pl-3">
+                    <mat-label>Username</mat-label>
+                    <input matInput [formControlName]="'username'">
+                    <mat-error *ngIf="submitted && f.username.errors">
+                        Username is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/3 pl-3">
+                    <mat-label>Name</mat-label>
+                    <input matInput [formControlName]="'name'">
+                    <mat-error *ngIf="submitted && f.name.errors">
+                        Name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/3 pl-3">
+                    <mat-label>Email</mat-label>
+                    <input matInput [formControlName]="'email'">
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.email.errors?.required">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="submitted && f.email.errors?.email">
+                        Valid email is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- <mat-form-field class="w-1/2 pl-3" *ngIf="!employee">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput [formControlName]="'password'" autocomplete="off">
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.password.errors">
+                        <span *ngIf="submitted && f.password.errors.required">Password is required</span>
+                        <span *ngIf="submitted && f.password.errors.minlength">Password Must Have Minimum Length Of
+                            6.
+                        </span>
+                    </mat-error>
+                </mat-form-field> -->
+
+                <mat-form-field class="w-1/2 pl-3" *ngIf="!employee">
+                    <mat-label>
+                        Password
+                    </mat-label>
+                    <input matInput type="password" [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <mat-error class="error" *ngIf="form.controls['password'].invalid">
+                        Password is required , Password Must Have Minimum Length Of
+                        6.
+                    </mat-error>
+
+                    <a class="show-pwd-icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>
+                            {{hide ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                    </a>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3" *ngIf="!employee">
+                    <mat-label>
+                        Confirm Password
+                    </mat-label>
+                    <input matInput type="password" [type]="hides ? 'password' : 'text'"
+                        formControlName="password_confirmation">
+                    <mat-error
+                        *ngIf="form.controls['password_confirmation'].pristine || form.controls['password_confirmation'].errors?.MatchPassword">
+                        Password does not match
+                    </mat-error>
+                    <mat-error *ngIf="submitted && f.password_confirmation.errors">
+                        Password is required
+                    </mat-error>
+                    <a class="show-pwd-icon" matSuffix (click)="hides = !hides" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hides">
+                        <mat-icon>{{hides ? 'visibility_off':'visibility'}}
+                        </mat-icon>
+
+                    </a>
+                </mat-form-field>
+                <hr />
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" type="button" mat-flat-button [color]="'primary'"
+                            (click)="save()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+</div>

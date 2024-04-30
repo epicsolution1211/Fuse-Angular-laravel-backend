@@ -1,0 +1,42 @@
+.ccuUsages {
+  cursor: pointer;
+}
+div#mat-select-6-panel {
+  max-width: 152px !important;
+  margin-top: 46px !important;
+}
+.loginData {
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 14px;
+  margin-top: 2px;
+  overflow: hidden;
+}
+.mat-select-min-line {
+  font-size: 12px !important;
+}
+
+::ng-deep .cdk-overlay-pane {
+  transform: none !important;
+}
+// ::ng-deep .mat-select-panel {
+//   left: 0;
+// }
+
+.manualDate {
+  color: white !important;
+}
+
+.manualDateDark {
+  color: #1e293b00 !important;
+}
+
+ng-select {
+  margin-top: 3px;
+}
+
+.custom-lable {
+  color: #0f172a;
+  font-weight: 500;
+  font-size: 14px;
+}

@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.arrow-1 .mat-icon {
+  width: 15px !important;
+  min-width: 15px !important;
+  height: 15px !important;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  // overflow: hidden;
+  width: auto;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
+  padding-right: 12px !important;
+}

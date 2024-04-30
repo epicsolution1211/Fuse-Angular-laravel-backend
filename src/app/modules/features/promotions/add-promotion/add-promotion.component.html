@@ -1,0 +1,132 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium" *ngIf="promotion == null">
+                New Promotion
+            </div>
+            <div class="text-lg font-medium" *ngIf="promotion != null">
+                Update Promotion
+            </div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div>
+            <form class="d-flex p-6 add-permanent" [formGroup]="form">
+                <!-- To -->
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>
+                        Type
+                    </mat-label>
+                    <mat-select [formControlName]="'promotion_type'" [(ngModel)]="selectedType"
+                        (selectionChange)="changeType($event)">
+                        <ng-container *ngFor="let type of promotion_type">
+                            <mat-option [value]="type.id">
+                                {{type.name}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.promotion_type.errors">
+                        Promotion Type is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>
+                        Promotion Name / Coupon Code
+                    </mat-label>
+                    <input matInput [formControlName]="'promotion_name'" [(ngModel)]="selectedProduct">
+                    <mat-error *ngIf="submitted && f.promotion_name.errors">
+                        Promotion name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3" *ngIf="priceHide">
+                    <mat-label>
+                        Price
+                    </mat-label>
+                    <input matInput [formControlName]="'price'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.price.errors">
+                        Price is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3" *ngIf="percentageHide">
+                    <mat-label>Percentage</mat-label>
+                    <input matInput [formControlName]="'percentage'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.percentage.errors">
+                        Percentage is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>
+                        Promotion Status
+                    </mat-label>
+                    <mat-select [formControlName]="'promotion_status'" [(ngModel)]="selected2">
+                        <ng-container *ngFor="let stat of status">
+                            <mat-option [value]="stat.id">
+                                {{stat.name}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.promotion_status.errors">
+                        Status is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-1/2 pl-3">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput [matDatepicker]="datepicker" [min]="minDate" (dateChange)="dateChange($event)"
+                        (click)="datepicker.open()" [formControlName]="'promotion_startDate'">
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="submitted && f.promotion_startDate.errors">
+                        Plase enter a valid start date.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-1/2 pl-3">
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="datepicker2" [min]="minDate" (click)="datepicker2.open()"
+                        [formControlName]="'promotion_endDate'">
+                    <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker2>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="submitted && f.promotion_endDate.errors">
+                        Please enter a valid end date.
+                    </mat-error>
+                </mat-form-field>
+
+                <hr class="abc" />
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" mat-flat-button [disabled]="clicked"
+                            [color]="'primary'" (click)="save()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+        </div>
+    </ng-template>
+</div>

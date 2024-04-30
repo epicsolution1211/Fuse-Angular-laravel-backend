@@ -1,0 +1,143 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6" *ngIf="!isLoading;">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">
+                Buy Cloud Server
+            </div>
+            <button mat-icon-button mat-dialog-close tabindex="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div>
+            <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+                <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+            </div>
+            <form class="d-flex p-6" [formGroup]="buyServer" (ngSubmit)="onSubmit()"
+                style="height:500px;overflow-y: scroll;">
+                <div class="grid grid-cols-1">
+                    <div>
+                        <mat-form-field class="min-w-full">
+                            <mat-label>
+                                Server
+                            </mat-label>
+                            <mat-select formControlName="server" panelClass="myPanelClassCustom">
+                                <input width="100%" matInput type="text" class="selectWithSearch"
+                                    [(ngModel)]="userFilter.name" name="userFilter"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Search...">
+                                <ng-container *ngFor="let server of buyServerobj.server | filterBy: userFilter">
+                                    <mat-option [value]="server.id">
+                                        {{server.name}}
+                                    </mat-option>
+                                </ng-container>
+                                <mat-option *ngIf="(buyServerobj.server | filterBy: userFilter).length === 0">
+                                    No matching elements
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>
+                                Select VPS version.
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1">
+                    <div>
+                        <mat-form-field class="min-w-full">
+                            <mat-label>
+                                Licence
+                            </mat-label>
+                            <mat-select formControlName="licence_id" panelClass="myPanelClassCustom">
+                                <input width="100%" matInput type="text" class="selectWithSearch"
+                                    [(ngModel)]="licencekey.licence_key" name="licencekey"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Search...">
+                                <ng-container *ngFor="let licence of buyServerobj.licence | filterBy: licencekey">
+                                    <mat-option [value]="licence.id">
+                                        {{licence.licence_key}}
+                                    </mat-option>
+                                </ng-container>
+                                <mat-option *ngIf="(buyServerobj.licence | filterBy: licencekey).length === 0">
+                                    No matching elements
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>
+                                Select the license with which the server will be installed.
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1">
+                    <div>
+                        <mat-form-field class="min-w-full">
+                            <mat-label>
+                                Atavism Server Version
+                            </mat-label>
+                            <mat-select formControlName="version" panelClass="myPanelClassCustom">
+                                <input width="100%" matInput type="text" class="selectWithSearch"
+                                    [(ngModel)]="serverVersion.version" name="serverVersion"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Search...">
+                                <ng-container
+                                    *ngFor="let server of buyServerobj.serverVersion | filterBy: serverVersion">
+                                    <mat-option [value]="server.version">
+                                        {{server.version}}
+                                    </mat-option>
+                                </ng-container>
+                                <mat-option *ngIf="(buyServerobj.serverVersion | filterBy: serverVersion).length === 0">
+                                    No matching elements
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>
+                                Select the server version to be installed.
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1">
+                    <div>
+                        <mat-form-field class="min-w-full">
+                            <mat-label>
+                                Installation type:
+                            </mat-label>
+                            <mat-select formControlName="installType" panelClass="myPanelClassCustom">
+                                <input width="100%" matInput type="text" class="selectWithSearch"
+                                    [(ngModel)]="userFilter.name" name="userFilter"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Search...">
+                                <ng-container *ngFor="let type of buyServerobj.installationType | filterBy: userFilter">
+                                    <mat-option [value]="type.name">
+                                        {{type.name}}
+                                    </mat-option>
+                                </ng-container>
+                                <mat-option *ngIf="(buyServerobj.installationType | filterBy: userFilter).length === 0">
+                                    No matching elements
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>
+                                Select the installation type.
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1">
+                    <div>
+                        <mat-form-field class="min-w-full">
+                            <mat-label>
+                                Hostname:
+                            </mat-label>
+                            <input matInput formControlName="hostname" placeholder="Enter hostname">
+                            <mat-hint>
+                                Hostname cannot contain whitespace
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" type="submit" mat-flat-button [color]="'primary'">
+                            Buy
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

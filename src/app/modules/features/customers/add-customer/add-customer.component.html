@@ -1,0 +1,238 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <!-- Title -->
+    <div class="text-lg font-medium" *ngIf="customer_main == 'add_customer_main'">
+      New Customer
+    </div>
+    <div class="text-lg font-medium" *ngIf="customer_main == 'edit_customer_main'">
+      Edit Customer
+    </div>
+    <div class="text-lg font-medium" *ngIf="customer_main == 'view_customer_main'">
+      View Customer
+    </div>
+
+    <button mat-icon-button (click)="close()" [tabIndex]="-1">
+      <mat-icon class="text-current" svgIcon="heroicons_outline:x"></mat-icon>
+    </button>
+  </div>
+  <!-- Compose form -->
+  <ng-container *ngIf="customer_main == 'add_customer_main' || !loading">
+    <div>
+      <form class="d-flex p-6 {{ customer_main }}" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- To -->
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Username</mat-label>
+          <input matInput [formControlName]="'username'" />
+          <mat-error *ngIf="submitted && f.username.errors">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Name</mat-label>
+          <input matInput [formControlName]="'name'" />
+          <mat-error *ngIf="submitted && f.name.errors">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Display Name</mat-label>
+          <input matInput [formControlName]="'displayname'" />
+          <div class="copy-fields-toggles" matSuffix></div>
+          <mat-error *ngIf="submitted && f.displayname.errors">
+            Display name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Email</mat-label>
+          <input matInput [formControlName]="'email'" />
+          <div class="copy-fields-toggles" matSuffix></div>
+          <mat-error *ngIf="submitted && f.email.errors?.required">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="submitted && f.email.errors?.email">
+            Valid email is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3" *ngIf="user">
+          <mat-label>Last Sign-in Date</mat-label>
+          <input matInput [formControlName]="'last_sign_in'" class="disabled" readonly disabled />
+          <mat-icon class="icon-size-5" matPostfix [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+          <mat-error *ngIf="submitted && f.last_sign_in.errors">
+            Last sign in is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3" *ngIf="user">
+          <mat-label>Registered Since</mat-label>
+          <input matInput [formControlName]="'registered_since'" class="disabled" readonly disabled />
+          <mat-icon class="icon-size-5" matPostfix [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+          <mat-error *ngIf="submitted && f.registered_since.errors">
+            Registered Since is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Locale</mat-label>
+          <mat-select [formControlName]="'locale'">
+            <mat-option>--</mat-option>
+            <ng-container *ngFor="let language of languages">
+              <mat-option [value]="language.language">
+                {{ language.language }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngIf="submitted && f.locale.errors">
+            Locale is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Role</mat-label>
+          <mat-select [formControlName]="'role'">
+            <mat-option>--</mat-option>
+            <ng-container *ngFor="let role of roles">
+              <mat-option [value]="role.id">
+                {{ role.role }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngIf="submitted && f.role.errors">
+            Role is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Title</mat-label>
+          <input matInput [formControlName]="'title'" />
+          <div class="copy-fields-toggles" matSuffix></div>
+          <mat-error *ngIf="submitted && f.title.errors">
+            Title is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-1/2 pl-3">
+          <mat-label>Discord accounts</mat-label>
+          <input matInput [formControlName]="'discord'" />
+          <div class="copy-fields-toggles" matSuffix></div>
+          <!-- <mat-error *ngIf="submitted && f.discord.errors">
+                        Discord accounts is required
+                    </mat-error> -->
+        </mat-form-field>
+
+        <div class="flex flex-col h-70 shadow rounded-2xl overflow-hidden bg-card ng-star-inserted">
+          <div class="flex flex-col p-6">
+            <div class="flex items-center justify-between">
+              <div
+                class="py-0.5 px-3 rounded-full text-sm font-semibold text-blue-800 bg-blue-100 dark:text-blue-50 dark:bg-blue-500 ng-star-inserted">
+                Licences
+              </div>
+              <!---->
+              <!---->
+              <div class="flex items-center">
+                <mat-icon role="img"
+                  class="mat-icon notranslate mat-tooltip-trigger icon-size-5 text-green-600 mat-icon-no-color ng-star-inserted"
+                  aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="badge-check"
+                  data-mat-icon-namespace="heroicons_solid" aria-describedby="cdk-describedby-message-yau-1-12"
+                  cdk-describedby-host="yau-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" fit="" height="100%"
+                    width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                    <path fill-rule="evenodd"
+                      d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </mat-icon>
+                <!---->
+                <!---->
+                <!---->
+              </div>
+            </div>
+            <div class="mt-4 text-lg font-medium"></div>
+
+            <ng-container *ngIf="user">
+              <div class="mt-0.5 line-clamp-8 text-secondary" *ngFor="let licence of user.licences">
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Licence key:</span>
+                  <span class="ml-1">
+                    {{ licence?.licence_key }}
+                  </span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Licence Type:</span>
+                  <span class="ml-1">
+                    {{ licence?.licence_type }}
+                  </span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Maintenance:</span>
+                  <span class="ml-1">
+                    {{ licence?.maintenance_expire }} UTC
+                  </span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Last visible:</span>
+                  <span class="ml-1">{{ licence?.server_keepalive }} UTC</span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Purchase Date:</span>
+                  <span class="ml-1">{{ licence?.buy_date }} UTC</span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Activation Date:</span>
+                  <span class="ml-1">{{ licence?.activationDate }} UTC</span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted">
+                  <span>Address:</span>
+                  <span class="ml-1">
+                    {{ licence?.server_address }}
+                  </span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted" *ngIf="licence.enabled == 0">
+                  <span></span>
+                  <span class="ml-1">
+                    ---------- licence disabled ----------
+                  </span>
+                </div>
+                <div class="ml-1.5 ng-star-inserted" *ngIf="licence.convert_to != -1">
+                  <span></span>
+                  <span class="ml-1">
+                    ---------- licence converted to {{ licence.convert_to }} X
+                    ----------
+                  </span>
+                </div>
+                <hr />
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <hr />
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-center">
+          <ng-container *ngIf="preview; else saveButton">
+            <button type="button" mat-stroked-button (click)="close()" class="sm:mr-3">
+              Close
+            </button>
+            <button type="button" mat-flat-button color="primary" (click)="setPreview(!preview)">
+              Edit
+            </button>
+          </ng-container>
+          <ng-template #saveButton>
+            <button type="button" mat-stroked-button (click)="close()" class="sm:mr-3">
+              Cancel
+            </button>
+            <button type="submit" mat-flat-button color="primary">Save</button>
+          </ng-template>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.2)" size="medium" [name]="spinner1" color="#0f172a"
+  template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+  <p style="color: rgb(10, 10, 10)">Loading...</p>
+</ngx-spinner>

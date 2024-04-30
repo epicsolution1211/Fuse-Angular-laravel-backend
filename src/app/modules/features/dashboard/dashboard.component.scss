@@ -1,0 +1,26 @@
+.button24 {
+  background-color: #eee;
+  width: 20px !important;
+  height: 20px !important;
+  min-height: 30px !important;
+  max-height: 40px !important;
+  min-width: 30px !important;
+
+  .mat-button-wrapper {
+    line-height: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+.Feedback-btn > .mat-button-wrapper[style] {
+  padding: 0px !important;
+  line-height: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.icon24 {
+  font-size: 16px;
+  margin-top: -8px;
+}

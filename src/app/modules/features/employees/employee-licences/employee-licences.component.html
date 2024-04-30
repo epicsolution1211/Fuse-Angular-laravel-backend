@@ -1,0 +1,120 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent"
+  *ngIf="!isLoading;else loading">
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    <!-- Title -->
+    <div class="flex-1 min-w-0">
+      <div class="flex flex-wrap items-center font-medium">
+        <div>
+          <a class="whitespace-nowrap text-primary-500">Administrative</a>
+        </div>
+        <div class="flex items-center ml-1 whitespace-nowrap arrow-1">
+          <mat-icon svgIcon="heroicons_outline:chevron-right"></mat-icon>
+          <a [routerLink]="['/users']" class="ml-1 text-primary-500">Users</a>
+        </div>
+      </div>
+      <div class="mt-2">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">Licences</h2>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="openComposeDialog()"
+        *ngIf="feature_permission?.includes('write')">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2 mr-1">Add</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- table -->
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)"
+      *ngIf="dataSource.length;else noRecords">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="licence_key">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Licence Key </th>
+        <td mat-cell *matCellDef="let element;">
+          {{element.licence_key}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="maintenance_expire">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Maintenance Expire </th>
+        <td mat-cell *matCellDef="let element;">
+          {{element.maintenance_expire}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="server_keepalive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Server Keep Alive </th>
+        <td mat-cell *matCellDef="let element;">
+          {{element.server_keepalive}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="buy_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Buy Date </th>
+        <td mat-cell *matCellDef="let element;">
+          {{element.buy_date}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="activationDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Activation Date </th>
+        <td mat-cell *matCellDef="let element;">
+          {{element.activationDate}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="server_address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Server Address </th>
+        <td mat-cell *matCellDef="let element;">
+          {{element.server_address}}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator *ngIf="licences?.total > 0" [length]="licences?.total" [pageSize]="paginate"
+      [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons (page)="pageEvent = getServerData($event)"></mat-paginator>
+    <ng-template #noRecords>
+      <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
+        Licences!
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+      <div class="flex items-center sm:mt-0">
+          <a *ngIf="role_id != 3"
+          [routerLink]="['/users']"
+          class="order-first sm:order-last mt-2 ml-1"
+          mat-flat-button
+          [color]="'primary'"
+          >
+          Back
+         </a>
+
+         <a *ngIf="role_id == 3"
+          [routerLink]="['/customers']"
+          class="order-first sm:order-last mt-2 ml-1"
+          mat-flat-button
+          [color]="'primary'"
+          >
+          Back
+         </a>
+      </div>
+    </div> -->
+</div>
+
+
+<ng-template #loading>
+  <div style="margin-left: 50%;margin-top:25%;">
+    <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+    <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+  </div>
+</ng-template>

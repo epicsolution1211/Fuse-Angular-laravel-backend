@@ -1,0 +1,49 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">Subscription Maintenance to Licence</div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6" [formGroup]="form" autocomplete="off">
+                <!-- To -->
+                <!-- <mat-form-field hidden="true">
+                <input matInput [formControlName]="'licence_id'" value="{{licence_data?.id}}">
+            </mat-form-field> -->
+                <p>Atavism Licence Key : {{licence_data?.licence_key}}</p>
+                <p>Type : {{licence_data?.licence_type_name}}</p>
+                <p>Maintenance Expiration Date : {{licence_data?.maintenance_expire}} UTC</p>
+                <p *ngIf="licence_data?.licence_type == 'PREM1'">Subscription Plan: Monthly Subscription by 30 days -
+                    $21 </p>
+                <p *ngIf="licence_data?.licence_type == 'PREM2'">Subscription Plan: Monthly Subscription by 30 days -
+                    $209 </p>
+                <p *ngIf="licence_data?.licence_type == 'PREM3'">Subscription Plan: Monthly Subscription by 30 days -
+                    $11 </p>
+                <p *ngIf="licence_data?.licence_type == 'PREM4'">Subscription Plan: Monthly Subscription by 30 days -
+                    $105 </p>
+                <p>The subscription time will extend the maintenance expiration</p>
+                <hr />
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" type="button" mat-flat-button [color]="'primary'"
+                            (click)="subscriptionMaintenance()">
+                            Confirm and Pay
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+</div>

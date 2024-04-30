@@ -1,0 +1,66 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Subscription to Licence</div>
+        <button
+        mat-icon-button
+        (click)="saveAndClose()"
+        [tabIndex]="-1">
+        <mat-icon
+            class="text-current"
+            [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6" [formGroup]="form" autocomplete="off">
+            <!-- To -->
+            <!-- <mat-form-field [hidden]="true">
+                <input matInput [hidden] [formControlName]="'licence_id'" value="{{licence_data?.id}}">
+            </mat-form-field> -->
+            <!-- <input type="hidden" matInput [formControlName]="'licence_id'" value="{{licence_data?.id}}"> -->
+            <p>Atavism Licence Key : {{licence_data?.licence_key}}</p>
+            <p>Type : {{licence_data?.licence_type_name}}</p>
+            <p>Expiration Date : {{licence_data?.maintenance_expire}} UTC</p>
+            <p>Actual Connections Limit : {{licence_data?.connections}} CCU</p>
+            <p *ngIf="licence_data?.licence_type == 'Disable'">
+                <span>Subscription: 
+                    <p class="help-block" *ngIf="licence_data?.licence_type?.includes('LEASE') || licence_data?.licence_type?.includes('TRIAL')">Select Subscription Plan (Each plan is 30 days auto-renewal subscription)</p>
+                    <input type="radio" formControlName="leaseplan" value="AtLease20CCU" checked>  20 CCU   - $39 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease100CCU">  100 CCU - $51 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease250CCU">  250 CCU - $63 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease500CCU">  500 CCU - $81 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease750CCU">  750 CCU - $120 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease1000CCU"> 1000 CCU - $150 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease1500CCU"> 1500 CCU - $225 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease2000CCU"> 2000 CCU - $282 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease3000CCU"> 3000 CCU - $420 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease4000CCU"> 4000 CCU - $540 <br/>
+                    <input type="radio" formControlName="leaseplan" value="AtLease5000CCU"> 5000 CCU - $660 <br/>
+                </span>
+            </p>
+            <hr/>
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                <div class="flex items-center sm:mt-0">
+                    <button
+                    class="order-first sm:order-last"
+                    type="button"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="save()">
+                    Continue
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading> 
+        <div style="margin: 50% auto" >
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+ </div>

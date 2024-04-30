@@ -1,0 +1,62 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">Assign Maintenance to Licence</div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6" [formGroup]="form" autocomplete="off">
+                <!-- To -->
+                <!-- <mat-form-field hidden="true">
+                <input matInput [formControlName]="'licence_id'" value="{{licence_data?.id}}">
+            </mat-form-field> -->
+                <p>Atavism Licence Key : {{licence_data?.licence_key}}</p>
+                <p>Type : {{licence_data?.licence_type_name}}</p>
+                <p>Maintenance Expiration Date : {{licence_data?.maintenance_expire}} UTC</p>
+                <p>Maintenance Plan: </p>
+                <mat-form-field class="w-100">
+                    <mat-label>Select purchased Maintenance to a assign</mat-label>
+                    <mat-select [formControlName]="'maintenances'">
+                        <mat-option>--</mat-option>
+                        <ng-container *ngFor="let maintenance of maintenances">
+                            <mat-option [value]="maintenance.id">
+                                {{maintenance.maintenance_type}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error *ngIf="submitted && f.maintenances.errors">
+                        Maintenances is required
+                    </mat-error>
+                </mat-form-field>
+                <div *ngIf="licence_data?.licence_type != 'PREM5'">
+                    If maitanance has expired, the purchased time will cover the time from expiration but not more than
+                    180 days.
+                </div>
+                <div *ngIf="licence_data?.licence_type == 'PREM5'">
+                    without back cover.
+                </div>
+                <hr />
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" type="button" mat-flat-button [color]="'primary'"
+                            (click)="assignMaintenance()">
+                            Assign Maintenance
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+</div>

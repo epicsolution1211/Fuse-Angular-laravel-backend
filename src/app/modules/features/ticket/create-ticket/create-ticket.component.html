@@ -1,0 +1,81 @@
+<div class="flex flex-col max-w-500 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">
+                Create Ticket
+            </div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div><!-- Compose form -->
+        <div>
+            <form class="p-6 add-permanent" [formGroup]="form">
+                <mat-form-field class="w-full">
+                    <mat-label>
+                        Subject
+                    </mat-label>
+                    <input matInput [formControlName]="'subject'">
+                    <mat-error *ngIf="submitted && f.subject.errors">
+                        Subject is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>
+                        Email
+                    </mat-label>
+                    <input matInput [formControlName]="'email'">
+                    <mat-error *ngIf="submitted && f.email.errors">
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-checkbox class="my-2" [formControlName]="'allow_access_to_server'">
+                    Allow Access To Server
+                </mat-checkbox>
+                <div *ngIf="form.value.allow_access_to_server">
+                    <mat-form-field class="w-full">
+                        <mat-label>
+                            Licence
+                        </mat-label>
+                        <input matInput [formControlName]="'licence'">
+                        <mat-error *ngIf="submitted && f.licence.errors">
+                            Email is required
+                        </mat-error>
+                    </mat-form-field><mat-form-field class="w-full">
+                        <mat-label>
+                            Server IP
+                        </mat-label>
+                        <input matInput [formControlName]="'server_ip'">
+                        <mat-error *ngIf="submitted && f.server_ip.errors">
+                            Email is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field class="w-full">
+                    <mat-label>
+                        Description
+                    </mat-label>
+                    <textarea rows="6" matInput [formControlName]="'description'"></textarea>
+                    <mat-error *ngIf="submitted && f.description.errors">
+                        Description is required
+                    </mat-error>
+                </mat-form-field>
+                <input type="file" class="w-full mb-4" [className]="fileError ? 'mb-0' : 'mb-4'"
+                    (input)="onChangeFile($event.target)">
+                <div *ngIf="fileError" style="color:red" class="mb-4 mt-2">{{fileError}}</div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="save()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+        </div>
+    </ng-template>
+</div>

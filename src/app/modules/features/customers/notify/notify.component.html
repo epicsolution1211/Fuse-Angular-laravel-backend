@@ -1,0 +1,93 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">
+                Notify User
+            </div>
+            <button mat-icon-button mat-dialog-close tabindex="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div style="height:500px;overflow-y: scroll;">
+            <form class="d-flex p-6" [formGroup]="notifyForm" (ngSubmit)="onSubmit()">
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <a class="flex flex-col w-40 h-40 m-2 p-4 shadow rounded-2xl cursor-pointer bg-card"
+                            [ngClass]="{'cardSelect': notifyUser.mailCard}" (click)="selectCard('mail')">
+                            <div class="aspect-w-9 aspect-h-6">
+                                <div class="flex items-center justify-center">
+                                    <!-- Icons -->
+                                    <ng-container>
+                                        <!-- Folder -->
+                                        <ng-container>
+                                            <mat-icon class="icon-size-14 text-hint">
+                                                contact_mail
+                                            </mat-icon>
+                                        </ng-container>
+                                        <!-- File -->
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="flex flex-col flex-auto justify-center text-center text-sm font-medium">
+                                <div class="truncate" matTooltip="Mail">Mail</div>
+                                <ng-container>
+                                    <div class="text-secondary truncate">Notify From mail</div>
+                                </ng-container>
+                            </div>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="flex flex-col w-40 h-40 m-2 p-4 shadow rounded-2xl cursor-pointer bg-card"
+                            [ngClass]="{'cardSelect': notifyUser.notificationCard}"
+                            (click)="selectCard('notification')">
+                            <div class="aspect-w-9 aspect-h-6">
+                                <div class="flex items-center justify-center">
+                                    <!-- Icons -->
+                                    <ng-container>
+                                        <!-- Folder -->
+                                        <ng-container>
+                                            <mat-icon class="icon-size-14 text-hint">
+                                                circle_notifications
+                                            </mat-icon>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="flex flex-col flex-auto justify-center text-center text-sm font-medium">
+                                <div class="truncate" matTooltip="Mail">Notification</div>
+                                <ng-container>
+                                    <div class="text-secondary truncate">Notify From Notification</div>
+                                </ng-container>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 mt-4">
+                    <div>
+                        <mat-form-field class="min-w-full">
+                            <mat-label>
+                                Feedback
+                            </mat-label>
+                            <input matInput formControlName="feedback" placeholder="Enter Feedback">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" mat-flat-button [color]="'primary'">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner name="spinner-1" bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#0f172a"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: rgb(10, 10, 10)">
+        Loading...
+    </p>
+</ngx-spinner>

@@ -1,0 +1,134 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">
+                        Management
+                    </a>
+                </div>
+            </div>
+            <div class="mt-3">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Advisor
+                    <div style="float:right;">
+                        <mat-form-field class="sm:ml-2 sm:mb-2 sm:mr-8" style="width: 90%;">
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                        </mat-form-field>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"
+            *ngIf="feature_permission?.includes('update')">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="editAdvisor()">
+                <mat-icon>edit</mat-icon>
+                <span class="ml-2 mr-1">
+                    Edit
+                </span>
+            </button>
+        </div>
+
+    </div>
+
+
+    <ng-container *ngIf="feature_permission?.includes('read')">
+        <div class="relative flex-0 py-2 px-4 sm:p-8 overflow-hidden">
+            <div class="example-container mat-elevation-z8 bg-card shadow rounded-2xl pr-3">
+
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- Advisor Name Column -->
+                    <ng-container matColumnDef="advise_name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Advise Name
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" matTooltip="{{row.advise_name}}">
+                            {{row.advise_name}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Mail Column -->
+                    <ng-container matColumnDef="advise_mail_status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Mail
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <span *ngIf="row.advise_mail_status == 1" matTooltip="Yes">
+                                Yes
+                            </span>
+                            <span *ngIf="row.advise_mail_status != 1" matTooltip="No">
+                                No
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Status Column -->
+                    <ng-container matColumnDef="advise_message_status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Message
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <span *ngIf="row.advise_message_status == 1" matTooltip="Yes">
+                                Yes
+                            </span>
+                            <span *ngIf="row.advise_message_status != 1" matTooltip="No">
+                                No
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Description Column -->
+                    <ng-container matColumnDef="advise_description">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Description
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <span *ngIf="row.advise_description == null">
+                                -
+                            </span>
+                            <span *ngIf="row.advise_description != null" matTooltip="{{row.advise_description}}">
+                                {{row.advise_description}}
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <!-- Action Column -->
+                    <!-- <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Action
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <div style="text-align: center;">
+                                <button mat-icon-button matTooltip="View Detail">
+                                    <mat-icon class="icon-size-5">
+                                        visibility
+                                    </mat-icon>
+                                </button>
+                            </div>
+                        </mat-cell>
+                    </ng-container> -->
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+                <mat-paginator class="mat-paginator-custom" [length]="users?.length"
+                    [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="paginate"
+                    (page)="pageEvent = getServerData($event)" aria-label="Select page of users">
+                </mat-paginator>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#0f172a"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: rgb(10, 10, 10)">
+        Loading...
+    </p>
+</ngx-spinner>

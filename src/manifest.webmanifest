@@ -1,0 +1,12 @@
+{
+  "name": "DocsTime",
+  "short_name": "DT",
+  "description": "DocsTime specializes in developing Online Doctor Appointment System in USA. Our highly experienced team of Doctor understands your requirements well, contact us today.",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "splash_pages": null,
+  "gcm_sender_id": "988562864253"
+}

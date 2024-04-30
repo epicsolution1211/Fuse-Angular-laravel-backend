@@ -1,0 +1,20 @@
+<mat-dialog-content>
+    <p>
+        {{dialogContent.headerText}}
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">
+        {{dialogContent.confirmButton}}
+    </button>
+    <button mat-raised-button mat-dialog-close tabindex="-1">
+        Cancel
+    </button>
+</mat-dialog-actions>
+
+<ngx-spinner name="spinner-1" bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#0f172a"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: rgb(10, 10, 10)">
+        Loading...
+    </p>
+</ngx-spinner>

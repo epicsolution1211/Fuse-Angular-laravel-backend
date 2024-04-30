@@ -1,0 +1,123 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6" *ngIf="!isLoading;else loading">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" *ngIf="roles == null">New Role</div>
+        <div class="text-lg font-medium" *ngIf="roles != null">Edit Role</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form class="flex flex-col flex-auto p-6 sm:p-8 add-role-main" [formGroup]="form">
+
+        <!-- To -->
+        <mat-form-field>
+            <mat-label>Role</mat-label>
+            <input matInput [formControlName]="'role'">
+            <div class="copy-fields-toggles" matSuffix>
+            </div>
+        </mat-form-field>
+
+        <div class="flex flex-col w-2/4">
+            <span class="pb-4"><b>Features & Permisssions</b></span>
+        </div>
+        <table>
+            <div *ngIf="permissions.length > 0">
+                <div *ngFor="let mainfeature of permissions">
+                    <tr>
+                        <td width="120">
+                            <span class="pb-2 capitalize">
+                                <b>
+                                    {{mainfeature?.feature}}
+                                </b>
+                            </span>
+                        </td>
+                        <td>
+                            <mat-checkbox [checked]="mainfeature.permissions.indexOf('read') != -1" class="mb-2 p-2"
+                                [color]="'primary'" (change)="onReadChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature.disabled">
+                                Read
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox [checked]="mainfeature.permissions.indexOf('write') != -1" class="mb-2 p-2"
+                                [color]="'primary'" (change)="onWriteChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature?.feature == 'Test Downloads' || mainfeature?.feature == 'Disabled Downloads'">
+                                Write
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox [checked]="mainfeature.permissions.indexOf('update') != -1" class="mb-2 p-2"
+                                [color]="'primary'" (change)="onUpdateChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature?.feature == 'Test Downloads' || mainfeature?.feature == 'Disabled Downloads' || mainfeature?.feature == 'Feedback Configuration'">
+                                Update
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox [checked]="mainfeature.permissions.indexOf('delete') != -1" class="mb-2 p-2"
+                                [color]="'primary'" (change)="onDeleteChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature?.feature == 'Test Downloads' || mainfeature?.feature == 'Disabled Downloads' || mainfeature?.feature == 'Feedback Configuration'">
+                                Delete
+                            </mat-checkbox>
+                        </td>
+                    </tr>
+                </div>
+            </div>
+            <div *ngIf="permissions.length == 0">
+                <div *ngFor="let mainfeature of features">
+                    <tr>
+                        <td width="120">
+                            <span class="pb-2 capitalize"><b>{{mainfeature?.name}}</b></span>
+                        </td>
+                        <td>
+                            <mat-checkbox class="mb-2 p-2" [color]="'primary'"
+                                (change)="onReadChange(mainfeature.id, $event.checked)">
+                                Read
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox class="mb-2 p-2" [color]="'primary'" *ngIf="mainfeature?.name != 'dashboard'"
+                                (change)="onWriteChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature?.name == 'Test Downloads' || mainfeature?.name == 'Disabled Downloads'">
+                                Write
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox class="mb-2 p-2" [color]="'primary'" *ngIf="mainfeature?.name != 'dashboard'"
+                                (change)="onUpdateChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature?.name == 'Test Downloads' || mainfeature?.name == 'Disabled Downloads' || mainfeature?.name == 'Feedback Configuration'">
+                                Update
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <mat-checkbox class="mb-2 p-2" [color]="'primary'" *ngIf="mainfeature?.name != 'dashboard'"
+                                (change)="onDeleteChange(mainfeature.id, $event.checked)"
+                                [disabled]="mainfeature?.name == 'Test Downloads' || mainfeature?.name == 'Disabled Downloads' || mainfeature?.name == 'Feedback Configuration'">
+                                Delete
+                            </mat-checkbox>
+                        </td>
+                    </tr>
+                </div>
+            </div>
+        </table>
+        <hr />
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+            <div class="flex items-center sm:mt-0">
+                <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<ng-template #loading>
+    <div style="margin: 50% auto;">
+        <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+        <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+    </div>
+</ng-template>

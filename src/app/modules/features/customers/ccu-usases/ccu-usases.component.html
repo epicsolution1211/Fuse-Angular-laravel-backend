@@ -1,0 +1,125 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div>
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium">
+                CCU Uses Graph
+                <!-- <strong *ngIf="dialogContent.licences.length != 0">
+                    ( {{dialogContent.licences[0]}} )
+                </strong> -->
+            </div>
+            <button mat-icon-button mat-dialog-close tabindex="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'">
+                </mat-icon>
+            </button>
+        </div>
+        <div class="m-4">
+
+            <p *ngIf="dialogContent.licences.length == 0" class="text-center">
+                Sorry no records found!
+            </p>
+
+            <ng-container *ngIf="dialogContent.licences.length != 0">
+                <form [formGroup]="chartsearchform">
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <mat-form-field class="min-w-full">
+                                <mat-label>
+                                    Date
+                                </mat-label>
+                                <mat-select [formControlName]="'filter'" (selectionChange)="checkValue($event)"
+                                    [(value)]="selectedFilter" [(ngModel)]="selectedFilter" panelClass="myPanelClass">
+                                    <ng-container *ngFor="let filters of filter">
+                                        <mat-option [value]="filters">
+                                            {{filters.name}}
+                                        </mat-option>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error *ngIf="submitted && f.filter.errors">
+                                    Filter is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="isCustom">
+                            <mat-form-field class="min-w-full">
+                                <mat-label>
+                                    From
+                                </mat-label>
+                                <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date"
+                                    [formControlName]="'from'" [disabled]="null" (focus)="picker1.open()">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker1 [showSpinners]="false" [showSeconds]="1"
+                                    [stepHour]="1" [stepMinute]="1" [stepSecond]="1" [touchUi]="false"
+                                    [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
+                                </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="isCustom">
+                            <mat-form-field class="min-w-full">
+                                <mat-label>
+                                    To
+                                </mat-label>
+                                <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date"
+                                    [formControlName]="'to'" [disabled]="null" (focus)="picker2.open()">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker2 [showSpinners]="false" [showSeconds]="1"
+                                    [stepHour]="1" [stepMinute]="1" [stepSecond]="1" [touchUi]="false"
+                                    [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
+                                </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="dialogContent.licences.length > 1">
+                            <mat-form-field class="min-w-full">
+                                <mat-label>
+                                    Licences
+                                </mat-label>
+                                <mat-select [formControlName]="'licence'"
+                                    (selectionChange)="onSelectEvent($event.value)" multiple>
+                                    <mat-option *ngFor="let licence of dialogContent.licences" [(value)]="licence.id">
+                                        {{licence.licence_key}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button class="order-last sm:order-last mt-5" mat-flat-button [disabled]="clicked"
+                                [color]="'primary'" (click)="searchGraph()">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="chart1" *ngIf="chartOptions">
+                    <apx-chart [series]="multipleChartOptions" [chart]="chartOptions?.chart"
+                        [dataLabels]="chartOptions?.dataLabels" [tooltip]="chartOptions?.tooltip"
+                        [grid]="chartOptions?.grid" [xaxis]="chartOptions?.xaxis" [yaxis]="chartOptions?.yaxis"
+                        [colors]="chartOptions?.colors">
+                    </apx-chart>
+                </div>
+
+                <!-- <div *ngFor="let item of userData; let i = index" [attr.data-index]="i">
+                    <div class="mat-cell" style="width: 200px;">{{userData[i].series.name}}</div>
+                    <div class="mat-cell">
+                        <div id="chart1">
+                            <apx-chart [series]='[userData[i].series]' [chart]="userData[i].chart"
+                                [dataLabels]="userData[i].dataLabels" [tooltip]="userData[i].tooltip"
+                                [grid]="userData[i].grid" [xaxis]='userData[i].xaxis' [yaxis]="chartOptions.yaxis"
+                                [colors]="userData[i].colors">
+                            </apx-chart>
+                        </div>
+                    </div>
+                </div> -->
+
+            </ng-container>
+
+        </div>
+    </div>
+</div>
+
+<ngx-spinner name="spinner-1" bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#0f172a"
+    template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+    <p style="color: rgb(10, 10, 10)">
+        Loading...
+    </p>
+</ngx-spinner>

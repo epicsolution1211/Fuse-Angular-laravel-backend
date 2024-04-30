@@ -1,0 +1,346 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+
+	<!-- Header -->
+	<div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark">
+		<!-- Background - @formatter:off -->
+		<!-- Rings -->
+		<svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%" height="100%"
+			preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+			<g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+				<circle r="234" cx="196" cy="23"></circle>
+				<circle r="234" cx="790" cy="491"></circle>
+			</g>
+		</svg>
+		<!-- @formatter:on -->
+		<div class="z-10 relative flex flex-col items-center">
+			<h2 class="text-xl font-semibold">
+				{{ClousText}}
+			</h2>
+			<div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+				Powered by North Networking
+			</div>
+		</div>
+	</div>
+
+	<!-- Main -->
+	<ng-container>
+		<div class="flex flex-auto p-6 sm:p-10" [ngClass]="{'clousText': ClousText != 'Atavism Cloud'}">
+			<div class="flex flex-col flex-auto w-full max-w-xs sm:max-w-5xl mx-auto">
+				<div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+					<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0 md:p-8">
+						<div class="flex md:w-full md:max-w-6xl sm:rounded-2xl sm:shadow overflow-hidden sm:bg-card">
+							<div class="w-full sm:w-auto py-8 px-4 sm:p-12 md:p-16">
+								<div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+									<!-- Logo -->
+									<div class="w-12">
+										<img src="assets/images/logo/logo.svg">
+									</div>
+
+									<!-- Title -->
+									<div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">
+										Please sign in using account in North Networking.
+
+									</div>
+									<div class="flex items-baseline mt-0.5 font-medium">
+										<div>
+											Don't have an account?
+										</div>
+										<a class="ml-1 text-primary-500 hover:underline"
+											href="https://client.northnetworking.com/register.php" target="_blank">
+											Sign up
+										</a>
+									</div>
+
+									<!-- Alert -->
+									<fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'"
+										[showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
+										{{alert.message}}
+									</fuse-alert>
+
+									<!-- Sign in form -->
+									<form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
+
+										<!-- Email field -->
+										<mat-form-field class="w-full">
+											<mat-label>
+												Username
+											</mat-label>
+											<input id="email" matInput [formControlName]="'username'">
+											<mat-error *ngIf="signInForm.get('username').hasError('required')">
+												Username is required
+											</mat-error>
+										</mat-form-field>
+
+										<!-- Password field -->
+										<mat-form-field class="w-full">
+											<mat-label>
+												Password
+											</mat-label>
+											<input id="password" matInput type="password" [formControlName]="'password'"
+												#passwordField>
+											<button mat-icon-button type="button"
+												(click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+												matSuffix>
+												<mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+													[svgIcon]="'heroicons_solid:eye'"></mat-icon>
+												<mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+													[svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+											</button>
+											<mat-error>
+												Password is required
+											</mat-error>
+										</mat-form-field>
+
+										<!-- Actions -->
+										<div class="inline-flex items-end justify-between w-full mt-1.5">
+											<mat-checkbox [color]="'primary'" [formControlName]="'rememberme'">
+												Remember me
+											</mat-checkbox>
+
+										</div>
+
+										<!-- Submit button -->
+										<button class="fuse-mat-button-large w-full mt-6" mat-flat-button
+											[color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
+											<span *ngIf="!signInForm.disabled">
+												Sign in
+											</span>
+											<mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+												[mode]="'indeterminate'">
+											</mat-progress-spinner>
+										</button>
+									</form>
+								</div>
+							</div>
+							<div
+								class="relative hidden md:flex flex-auto items-center justify-center h-full pt-10 pb-10 overflow-hidden bg-gray-800 dark:border-l">
+								<!-- Background - @formatter:off -->
+								<!-- Rings -->
+								<svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%"
+									height="100%" preserveAspectRatio="xMidYMax slice"
+									xmlns="http://www.w3.org/2000/svg">
+									<g class="text-gray-700 opacity-25" fill="none" stroke="currentColor"
+										stroke-width="100">
+										<circle r="234" cx="196" cy="23"></circle>
+										<circle r="234" cx="790" cy="491"></circle>
+									</g>
+								</svg>
+								<!-- Dots -->
+								<svg class="absolute -top-16 -right-16 text-gray-700" viewBox="0 0 220 192" width="220"
+									height="192" fill="none">
+									<defs>
+										<pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20"
+											height="20" patternUnits="userSpaceOnUse">
+											<rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
+										</pattern>
+									</defs>
+									<rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)">
+									</rect>
+								</svg>
+								<!-- @formatter:on -->
+								<!-- Content -->
+								<div class="z-10 relative w-full max-w-2xl">
+									<iframe width="560" height="315" src="https://www.youtube.com/embed/EENN6LAbKcY"
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen="">
+									</iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+
+
+	<!-- Header -->
+	<!-- [ngClass]="{'clousText': ClousText != 'Atavism Cloud Servers'}" -->
+	<ng-container>
+		<div class="relative flex-0 py-2 px-2 sm:p-8 overflow-hidden"
+			[ngClass]="{'clousText': ClousText != 'Atavism Cloud Servers'}">
+			<div style="display: flex;align-items: center;justify-content: space-between;" class="main-head">
+				<div style="margin-bottom: 12px;">
+					<button class="ml-4" mat-flat-button [color]="'primary'" (click)="buyVPSServer()">
+						<mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+						<span class="ml-2 mr-1">
+							Buy Server VPS
+						</span>
+					</button>
+
+					<button class="ml-4" mat-flat-button [color]="'warn'" (click)="vpsControl('logout')">
+						<mat-icon>adjust</mat-icon>
+						<span class="ml-2 mr-1">
+							Disconnect from account in North Networking
+						</span>
+					</button>
+				</div>
+				<mat-form-field class="ml-4">
+					<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+				</mat-form-field>
+			</div>
+			<!-- <div class="example-header mt-3">
+				<mat-form-field style="width: 30%;">
+					<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+				</mat-form-field>
+			</div> -->
+
+			<div class="example-container mat-elevation-z8 bg-card shadow rounded-2xl pr-3">
+
+				<mat-table [dataSource]="dataSource" matSort>
+
+					<!-- Server Name Column -->
+					<ng-container matColumnDef="servername">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Server Name
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							{{row.servername}}
+						</mat-cell>
+					</ng-container>
+
+					<!-- Server Address Column -->
+					<ng-container matColumnDef="dedicatedip">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Server Address
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							{{row.dedicatedip}}
+						</mat-cell>
+					</ng-container>
+
+					<!-- Server Hostname Column -->
+					<ng-container matColumnDef="domain">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Server Hostname
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							{{row.domain}}
+						</mat-cell>
+					</ng-container>
+
+					<!-- Server Type Column -->
+					<ng-container matColumnDef="name">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Server Type
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							{{row.name}}
+						</mat-cell>
+					</ng-container>
+
+					<!-- Database Credential Column -->
+					<ng-container matColumnDef="mysqlpass">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Database Credential
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							user: atavism
+							pass: {{row.mysqlpass}}
+						</mat-cell>
+					</ng-container>
+
+					<!-- Order Status Column -->
+					<ng-container matColumnDef="status">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Order Status
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							{{row.status}}
+						</mat-cell>
+					</ng-container>
+
+					<!-- VPS Status Column -->
+					<ng-container matColumnDef="vpsstatus">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							VPS Status
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							<span *ngIf="row.vpsstatus == ''">
+								VPS is off
+							</span>
+							<span *ngIf="row.vpsstatus == 1">
+								VPS is on
+							</span>
+						</mat-cell>
+					</ng-container>
+
+					<!-- Used Bandwidth Column -->
+					<ng-container matColumnDef="bandwidth">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Used Bandwidth
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							<span *ngIf="row.bandwidth != -1">
+								{{row.used_bandwidth}}/
+								{{row.bandwidth}}
+							</span>
+						</mat-cell>
+					</ng-container>
+
+					<!-- Action Column -->
+					<ng-container matColumnDef="action">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>
+							Action
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							<div style="text-align: center;">
+								<button mat-icon-button [matMenuTriggerFor]="listCard09Menu">
+									<mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:dots-vertical'">
+									</mat-icon>
+								</button>
+								<mat-menu #listCard09Menu="matMenu">
+									<button mat-menu-item
+										*ngIf="row.invoiceid != -1 || row.vpsstatus != '' && row.vpsstatus != 1">
+										<mat-icon>
+											payment
+										</mat-icon>
+										<a href="https://development.my.ksweb.net/viewinvoice.php?id={{row.invoiceid}}"
+											target="_blank">Pay the invoice</a>
+									</button>
+									<button mat-menu-item *ngIf="row.vpsstatus == 0 && row.invoiceid == -1"
+										(click)="vpsControl('start')">
+										<mat-icon>
+											touch_app
+										</mat-icon>
+										Start VPS
+									</button>
+									<button mat-menu-item *ngIf="row.vpsstatus == 1" (click)="vpsControl('stop')">
+										<mat-icon>
+											stop
+										</mat-icon>
+										Stop VPS
+									</button>
+									<button mat-menu-item *ngIf="row.vpsstatus == 1" (click)="vpsControl('restart')">
+										<mat-icon>
+											restore
+										</mat-icon>
+										Restart VPS
+									</button>
+								</mat-menu>
+							</div>
+						</mat-cell>
+					</ng-container>
+
+					<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+					<mat-row *matRowDef="let row; columns: displayedColumns;">
+					</mat-row>
+				</mat-table>
+				<mat-paginator [pageSizeOptions]="[ 10, 25, 100]"></mat-paginator>
+			</div>
+			<div class="relative mt-5 text-center">
+				<iframe width="100%" height="315" src="https://www.youtube.com/embed/EENN6LAbKcY" frameborder="0"
+					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen=""></iframe>
+			</div>
+		</div>
+	</ng-container>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.2)" size="medium" color="#0f172a"
+	template="<img src='./assets/images/logo/atavism_logo_big.png' />" [fullScreen]="false">
+	<p style="color: rgb(10, 10, 10)">
+		Loading...
+	</p>
+</ngx-spinner>

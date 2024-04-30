@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.821" gradientTransform="matrix(0.035, 0.999, -0.74, 0.026, 0.852, -0.013)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2196f3"/>
+      <stop offset="1" stop-color="#10519d"/>
+    </radialGradient>
+  </defs>
+  <g id="atavism_logo" transform="translate(-916 -505)">
+    <rect id="Rectangle_2" data-name="Rectangle 2" width="32" height="32" transform="translate(916 505)" fill="none"/>
+    <g id="Group_1" data-name="Group 1" transform="translate(154.905 87.719)">
+      <path id="Path_1" data-name="Path 1" d="M2156.1,454.413s.469,11.877-16.636,24.5a1.281,1.281,0,0,0-.148,1.555,1.223,1.223,0,0,0,1.431.382,35.322,35.322,0,0,1,17.784-7.017s1.75,2.749,7.609,6.795c0,0,1,.432,1.555-.148s0-1.567,0-1.567a61.76,61.76,0,0,1-6.263-5.306s1.74-.447,8.392.1c0,0,1.291-.19,1.272-1.367a1.422,1.422,0,0,0-1.272-1.329s-11.991-1.337-20.883,2.827a53.1,53.1,0,0,0,4.7-6.376,19.969,19.969,0,0,0,2.422,3.4,11.423,11.423,0,0,0,2.663-.1s-3.016-4.074-3.818-5.614c0,0,2.747-3.306,3.651-10.731a1.12,1.12,0,0,0-1.139-1A1.407,1.407,0,0,0,2156.1,454.413Z" transform="translate(-1378 -34.071)" fill="url(#radial-gradient)"/>
+      <path id="Path_2" data-name="Path 2" d="M2163.408,464.621c-.073-.109-2.731-3.5-3.716-10.177a1.183,1.183,0,0,1,1.212-1.162,1.293,1.293,0,0,1,1.362.98,25.387,25.387,0,0,0,2.018,6.675,4.122,4.122,0,0,1-.611,3.239Z" transform="translate(-1389.274 -34)" fill="url(#radial-gradient)"/>
+    </g>
+  </g>
+</svg>

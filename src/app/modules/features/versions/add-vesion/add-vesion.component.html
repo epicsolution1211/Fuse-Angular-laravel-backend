@@ -1,0 +1,100 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" *ngIf="!releaseId">New Release</div>
+        <div class="text-lg font-medium" *ngIf="releaseId">Edit Release</div>
+        <button
+        mat-icon-button
+        (click)="saveAndClose()"
+        [tabIndex]="-1">
+        <mat-icon
+            class="text-current"
+            [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    
+    <div *ngIf="!isLoading;else loading">
+        <!-- Compose form -->
+        <form class="d-flex p-6" [formGroup]="form">
+
+            <mat-form-field class="w-1/2 pl-3">
+                <mat-label>Name</mat-label>
+                <input matInput [formControlName]="'name'">
+                <mat-error *ngIf="submitted && f.name.errors">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-1/2 pl-3" *ngIf="releaseId == null">
+                <mat-label>Version</mat-label>
+                <input matInput [formControlName]="'version'">
+                <div class="copy-fields-toggles" matSuffix></div>
+                <mat-error *ngIf="submitted && f.version.errors">
+                    Version is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-1/2 pl-3" *ngIf="releaseId != null">
+                <mat-label>Version</mat-label>
+                <input matInput [formControlName]="'version'" readonly>
+                <div class="copy-fields-toggles" matSuffix></div>
+                <mat-error *ngIf="submitted && f.version.errors">
+                    Version is required
+                </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field class="w-1/2 pl-3" *ngIf="download == null">
+               <mat-label>Release Date</mat-label>
+               <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControlName]="'release_date'" [disabled]="null">
+               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+               <ngx-mat-datetime-picker #picker [showSpinners]="false" [showSeconds]="1"
+                  [stepHour]="1" [stepMinute]="1" [stepSecond]="1"
+                  [touchUi]="false" [enableMeridian]="false" 
+                  [disableMinute]="false" [hideTime]="false">
+               </ngx-mat-datetime-picker>
+               <mat-error *ngIf="submitted && f.release_date.errors">
+                    Release Date is required
+                </mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="w-1/2 pl-3" appearance="fill">
+                <mat-label>Release Date</mat-label>
+                <input matInput [matDatepicker]="picker" [formControlName]="'release_date'" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="submitted && f.release_date.errors">
+                    Release date is required
+                </mat-error>    
+            </mat-form-field> -->
+
+            <mat-form-field class="w-1/2 pl-3">
+                <mat-label>Server Key</mat-label>
+                <input matInput [formControlName]="'server_key'">
+                <div class="copy-fields-toggles" matSuffix></div>
+            </mat-form-field>
+        <hr/>
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+
+            <div class="flex items-center sm:mt-0 pl-2">
+                <button
+                class="order-first sm:order-last"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Save
+                </button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+
+<ng-template #loading> 
+    <div style="margin: 50% auto" >
+        <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+        <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+    </div>
+</ng-template>

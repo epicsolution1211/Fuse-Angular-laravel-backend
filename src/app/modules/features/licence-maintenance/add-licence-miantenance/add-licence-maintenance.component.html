@@ -1,0 +1,122 @@
+<div class="flex flex-col max-w-500 md:min-w-160 -m-6">
+    <div *ngIf="!isLoading;else loading">
+        <!-- Header -->
+        <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+            <div class="text-lg font-medium" *ngIf="licence == null">New Licence Maintenance</div>
+            <div class="text-lg font-medium" *ngIf="licence != null">Update Licence Maintenance</div>
+            <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <!-- Compose form -->
+        <div *ngIf="!isLoading;else loading">
+            <form class="d-flex p-6 add-maintenance" [formGroup]="form">
+                <!-- To -->
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Type</mat-label>
+                    <mat-select [formControlName]="'type'" [(ngModel)]="selectedType"
+                        (selectionChange)="changeType($event.value,selectedProduct)">
+                        <ng-container *ngFor="let multi of type">
+                            <mat-option [value]="multi.id">
+                                {{multi.name}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <div class="copy-fields-toggles" matSuffix></div>
+                    <mat-error *ngIf="submitted && f.type.errors">
+                        Type is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3" *ngIf="productCombo">
+                    <mat-label>Product Name</mat-label>
+                    <input matInput [formControlName]="'plan_name'" [(ngModel)]="selectedProduct">
+                    <mat-error *ngIf="submitted && f.plan_name.errors">
+                        Product name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3" *ngIf="!productCombo">
+                    <mat-label>Product Name</mat-label>
+                    <mat-select [formControlName]="'plan_name'" [(ngModel)]="selectedVersionArr"
+                        [compareWith]="compareProductObjects">
+                        <ng-container *ngFor="let product of products">
+                            <mat-option [value]="product">
+                                {{product.product_sku}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error *ngIf="submitted && f.plan_name.errors">
+                        Product name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Price from</mat-label>
+                    <input matInput [formControlName]="'from_price'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.from_price.errors">
+                        Price from is required lessthan Price to
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Price to</mat-label>
+                    <input matInput [formControlName]="'to_price'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.to_price.errors">
+                        Price to is required greaterthan Price from
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- <div class="w-1/2 pl-3 custom-slider">
+
+                    <mat-label>Price in USD</mat-label>
+
+                    <ngx-slider [options]="options" formControlName="product_price"></ngx-slider>
+                </div> -->
+
+                <!-- <mat-form-field class="w-1/2 pl-3">
+
+                    <mat-label>Price in USD</mat-label>
+
+                    <input matInput [formControlName]="'product_price'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.product_price.errors">
+                        Product Price is required
+                    </mat-error>
+                </mat-form-field> -->
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Maintenance Days</mat-label>
+                    <input matInput [formControlName]="'maintenance'" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="submitted && f.maintenance.errors">
+                        Maintenance is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-1/2 pl-3">
+                    <mat-label>Licence Type</mat-label>
+                    <input matInput [formControlName]="'licence_type'">
+                    <mat-error *ngIf="submitted && f.licence_type.errors">
+                        Licence type is required
+                    </mat-error>
+                </mat-form-field>
+
+                <hr class="abc" />
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div class="flex items-center sm:mt-0">
+                        <button class="order-first sm:order-last" mat-flat-button [disabled]="clicked"
+                            [color]="'primary'" (click)="save()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div style="margin: 50% auto">
+            <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+            <!-- <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar> -->
+        </div>
+    </ng-template>
+</div>
